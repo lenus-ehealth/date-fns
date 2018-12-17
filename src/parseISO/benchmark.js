@@ -2,15 +2,15 @@
 /* eslint-env mocha */
 /* global suite, benchmark */
 
-import toDate from '.'
+import parseISO from '.'
 import moment from 'moment'
 
 suite('toDate', function() {
   benchmark('date-fns', function() {
-    return toDate(539980200000)
+    return parseISO('2014-10-25T13:46:20+07:00')
   })
 
   benchmark('Moment.js', function() {
-    return moment(539980200000)
+    return moment('2014-10-25T13:46:20+07:00')
   })
 })
