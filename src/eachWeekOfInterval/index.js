@@ -10,7 +10,6 @@ import addWeeks from '../addWeeks/index.js'
  * @description
  * Return the array of weeks within the specified time interval.
  *
- *
  * ### v2.0.0 breaking changes:
  *
  * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
@@ -42,14 +41,16 @@ import addWeeks from '../addWeeks/index.js'
  * //   2014-11-23T00:00:00.000Z
  * // ]
  */
-export default function eachWeekOfInterval (dirtyInterval, dirtyOptions) {
+export default function eachWeekOfInterval(dirtyInterval, dirtyOptions) {
   if (arguments.length < 1) {
-    throw new TypeError('1 argument required, but only ' + arguments.length + ' present')
+    throw new TypeError(
+      '1 argument required, but only ' + arguments.length + ' present'
+    )
   }
 
   var interval = dirtyInterval || {}
-  var startDate = toDate(interval.start, dirtyOptions)
-  var endDate = toDate(interval.end, dirtyOptions)
+  var startDate = toDate(interval.start)
+  var endDate = toDate(interval.end)
 
   var endTime = endDate.getTime()
 
@@ -73,7 +74,7 @@ export default function eachWeekOfInterval (dirtyInterval, dirtyOptions) {
 
   while (currentWeek.getTime() <= endTime) {
     currentWeek.setHours(0)
-    weeks.push(toDate(currentWeek, dirtyOptions))
+    weeks.push(toDate(currentWeek))
     currentWeek = addWeeks(currentWeek, 1)
     currentWeek.setHours(15)
   }
