@@ -10,7 +10,6 @@ import toDate from '../toDate/index.js'
  * Return the start of a week for the given date.
  * The result will be in the local timezone.
  *
- *
  * ### v2.0.0 breaking changes:
  *
  * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).

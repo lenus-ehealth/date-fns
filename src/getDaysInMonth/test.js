@@ -15,12 +15,6 @@ describe('getDaysInMonth', function() {
     assert(result === 29)
   })
 
-  it('accepts a string', function() {
-    var date = new Date(2014, 6 /* Jul */, 2).toISOString()
-    var result = getDaysInMonth(date)
-    assert(result === 31)
-  })
-
   it('accepts a timestamp', function() {
     var date = new Date(2014, 6 /* Jul */, 2).getTime()
     var result = getDaysInMonth(date)

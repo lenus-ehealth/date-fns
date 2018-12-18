@@ -10,11 +10,6 @@ describe('getISOWeekYear', function() {
     assert(result === 2008)
   })
 
-  it('accepts a string', function() {
-    var result = getISOWeekYear(new Date(2005, 0 /* Jan */, 1).toISOString())
-    assert(result === 2004)
-  })
-
   it('accepts a timestamp', function() {
     var result = getISOWeekYear(new Date(2005, 0 /* Jan */, 1).getTime())
     assert(result === 2004)

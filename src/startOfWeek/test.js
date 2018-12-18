@@ -47,12 +47,6 @@ describe('startOfWeek', function() {
     assert.deepEqual(result, new Date(2014, 8 /* Sep */, 1))
   })
 
-  it('accepts a string', function() {
-    var date = new Date(2014, 8 /* Sep */, 2, 11, 55, 0).toISOString()
-    var result = startOfWeek(date)
-    assert.deepEqual(result, new Date(2014, 7 /* Aug */, 31))
-  })
-
   it('accepts a timestamp', function() {
     var date = new Date(2014, 8 /* Sep */, 2, 11, 55, 0).getTime()
     var result = startOfWeek(date)
