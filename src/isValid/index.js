@@ -12,7 +12,6 @@ import toDate from '../toDate/index.js'
  *
  * Time value of Date: http://es5.github.io/#x15.9.1.1
  *
- *
  * ### v2.0.0 breaking changes:
  *
  * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
