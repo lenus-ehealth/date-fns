@@ -11,7 +11,6 @@ var MILLISECONDS_IN_HOUR = 3600000
  * @description
  * Add the specified number of hours to the given date.
  *
- *
  * ### v2.0.0 breaking changes:
  *
  * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
