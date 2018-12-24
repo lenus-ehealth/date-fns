@@ -10,13 +10,6 @@ describe('endOfISOWeekYear', function() {
     assert.deepEqual(result, new Date(2010, 0 /* Jan */, 3, 23, 59, 59, 999))
   })
 
-  it('accepts a string', function() {
-    var result = endOfISOWeekYear(
-      new Date(2005, 0 /* Jan */, 1, 6, 0).toISOString()
-    )
-    assert.deepEqual(result, new Date(2005, 0 /* Jan */, 2, 23, 59, 59, 999))
-  })
-
   it('accepts a timestamp', function() {
     var result = endOfISOWeekYear(
       new Date(2005, 0 /* Jan */, 1, 6, 0).getTime()

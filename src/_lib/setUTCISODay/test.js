@@ -39,14 +39,6 @@ describe('setUTCISODay', function() {
     })
   })
 
-  it('accepts a string', function() {
-    var result = setUTCISODay(
-      new Date(Date.UTC(2014, 8 /* Sep */, 1)).toISOString(),
-      5
-    )
-    assert.deepEqual(result, new Date(Date.UTC(2014, 8 /* Sep */, 5)))
-  })
-
   it('accepts a timestamp', function() {
     var result = setUTCISODay(
       new Date(Date.UTC(2014, 8 /* Sep */, 1)).getTime(),

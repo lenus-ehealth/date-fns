@@ -11,12 +11,6 @@ describe('endOfHour', function() {
     assert.deepEqual(result, new Date(2014, 11, 1, 22, 59, 59, 999))
   })
 
-  it('accepts a string', function() {
-    var date = new Date(2014, 11, 1, 13).toISOString()
-    var result = endOfHour(date)
-    assert.deepEqual(result, new Date(2014, 11, 1, 13, 59, 59, 999))
-  })
-
   it('accepts a timestamp', function() {
     var result = endOfHour(new Date(2014, 11, 1, 22, 15).getTime())
     assert.deepEqual(result, new Date(2014, 11, 1, 22, 59, 59, 999))

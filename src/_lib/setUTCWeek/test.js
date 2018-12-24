@@ -10,14 +10,6 @@ describe('setUTCWeek', function() {
     assert.deepEqual(result, new Date(Date.UTC(2004, 11 /* Dec */, 26)))
   })
 
-  it('accepts a string', function() {
-    var result = setUTCWeek(
-      new Date(Date.UTC(2009, 11 /* Dec */, 2)).toISOString(),
-      1
-    )
-    assert.deepEqual(result, new Date(Date.UTC(2008, 11 /* Dec */, 31)))
-  })
-
   it('accepts a timestamp', function() {
     var result = setUTCWeek(Date.UTC(2009, 11 /* Dec */, 2), 1)
     assert.deepEqual(result, new Date(Date.UTC(2008, 11 /* Dec */, 31)))

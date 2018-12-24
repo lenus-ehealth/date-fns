@@ -11,12 +11,6 @@ describe('endOfDecade', function() {
     assert.deepEqual(result, new Date(2019, 11 /* Dec */, 31, 23, 59, 59, 999))
   })
 
-  it('accepts a string', function() {
-    var date = new Date(2004, 3 /* Apr */, 9, 0, 0, 0).toISOString()
-    var result = endOfDecade(date)
-    assert.deepEqual(result, new Date(2009, 11 /* Dec */, 31, 23, 59, 59, 999))
-  })
-
   it('accepts a timestamp', function() {
     var date = new Date(2007, 9 /* Oct */, 10, 0, 0, 0).getTime()
     var result = endOfDecade(date)

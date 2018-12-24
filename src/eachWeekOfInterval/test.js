@@ -22,23 +22,6 @@ describe('eachWeekOfInterval', function() {
     ])
   })
 
-  it('accepts strings', function() {
-    var result = eachWeekOfInterval({
-      start: '2014-W41',
-      end: '2014-W48'
-    })
-    assert.deepEqual(result, [
-      new Date(2014, 9 /* Oct */, 5),
-      new Date(2014, 9 /* Oct */, 12),
-      new Date(2014, 9 /* Oct */, 19),
-      new Date(2014, 9 /* Oct */, 26),
-      new Date(2014, 10 /* Nov */, 2),
-      new Date(2014, 10 /* Nov */, 9),
-      new Date(2014, 10 /* Nov */, 16),
-      new Date(2014, 10 /* Nov */, 23)
-    ])
-  })
-
   it('accepts timestamps', function() {
     var result = eachWeekOfInterval({
       start: new Date(2014, 9 /* Oct */, 6).getTime(),

@@ -10,11 +10,6 @@ describe('addQuarters', function() {
     assert.deepEqual(result, new Date(2014, 11 /* Dec */, 1))
   })
 
-  it('accepts a string', function() {
-    var result = addQuarters(new Date(2014, 8 /* Sep */, 1).toISOString(), 4)
-    assert.deepEqual(result, new Date(2015, 8 /* Sep */, 1))
-  })
-
   it('accepts a timestamp', function() {
     var result = addQuarters(new Date(2014, 8 /* Sep */, 1).getTime(), 4)
     assert.deepEqual(result, new Date(2015, 8 /* Sep */, 1))

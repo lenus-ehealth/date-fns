@@ -514,9 +514,6 @@ describe('format', function() {
   })
 
   describe('time zone', function() {
-    it('should toDate the given date in a local timezone', function() {
-      assert(format('2015-01-01', 'yyyy-MM-dd') === '2015-01-01')
-    })
     it('ISO-8601 with Z', function() {
       var result = format(date, 'X XX XXX XXXX XXXXX')
       var expectedResult = [

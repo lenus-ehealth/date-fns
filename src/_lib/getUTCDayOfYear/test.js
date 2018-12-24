@@ -10,13 +10,6 @@ describe('getUTCDayOfYear', function() {
     assert(result === 183)
   })
 
-  it('accepts a string', function() {
-    var result = getUTCDayOfYear(
-      new Date(Date.UTC(2014, 0 /* Jan */, 2)).toISOString()
-    )
-    assert(result === 2)
-  })
-
   it('accepts a timestamp', function() {
     var result = getUTCDayOfYear(
       new Date(Date.UTC(2014, 0 /* Jan */, 2)).getTime()

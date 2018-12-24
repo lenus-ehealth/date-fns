@@ -15,16 +15,6 @@ describe('startOfUTCISOWeekYear', function() {
     )
   })
 
-  it('accepts a string', function() {
-    var result = startOfUTCISOWeekYear(
-      new Date(Date.UTC(2005, 0 /* Jan */, 1, 6, 0)).toISOString()
-    )
-    assert.deepEqual(
-      result,
-      new Date(Date.UTC(2003, 11 /* Dec */, 29, 0, 0, 0, 0))
-    )
-  })
-
   it('accepts a timestamp', function() {
     var result = startOfUTCISOWeekYear(
       new Date(Date.UTC(2005, 0 /* Jan */, 1, 6, 0)).getTime()

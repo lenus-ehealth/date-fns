@@ -66,14 +66,6 @@ describe('isSameUTCWeek', function() {
     assert(result === false)
   })
 
-  it('accepts a string', function() {
-    var result = isSameUTCWeek(
-      new Date(Date.UTC(2014, 7 /* Aug */, 31)).toISOString(),
-      new Date(Date.UTC(2014, 8 /* Sep */, 4)).toISOString()
-    )
-    assert(result === true)
-  })
-
   it('accepts a timestamp', function() {
     var result = isSameUTCWeek(
       Date.UTC(2014, 7 /* Aug */, 31),

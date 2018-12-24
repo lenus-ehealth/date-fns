@@ -21,14 +21,6 @@ describe('differenceInCalendarDays', function() {
     assert(result === -366)
   })
 
-  it('accepts strings', function() {
-    var result = differenceInCalendarDays(
-      new Date(2014, 6 /* Jul */, 1, 23, 59, 59, 999).toISOString(),
-      new Date(2014, 0 /* Jan */, 1).toISOString()
-    )
-    assert(result === 181)
-  })
-
   it('accepts timestamps', function() {
     var result = differenceInCalendarDays(
       new Date(2014, 8 /* Sep */, 5, 18, 0).getTime(),

@@ -10,13 +10,6 @@ describe('getUTCWeekYear', function() {
     assert(result === 2005)
   })
 
-  it('accepts a string', function() {
-    var result = getUTCWeekYear(
-      new Date(Date.UTC(2000, 11 /* Dec */, 30)).toISOString()
-    )
-    assert(result === 2000)
-  })
-
   it('accepts a timestamp', function() {
     var result = getUTCWeekYear(Date.UTC(2000, 11 /* Dec */, 30))
     assert(result === 2000)

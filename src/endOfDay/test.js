@@ -11,12 +11,6 @@ describe('endOfDay', function() {
     assert.deepEqual(result, new Date(2014, 8 /* Sep */, 2, 23, 59, 59, 999))
   })
 
-  it('accepts a string', function() {
-    var date = new Date(2014, 8 /* Sep */, 2, 11, 55, 0).toISOString()
-    var result = endOfDay(date)
-    assert.deepEqual(result, new Date(2014, 8 /* Sep */, 2, 23, 59, 59, 999))
-  })
-
   it('accepts a timestamp', function() {
     var date = new Date(2014, 8 /* Sep */, 2, 11, 55, 0).getTime()
     var result = endOfDay(date)

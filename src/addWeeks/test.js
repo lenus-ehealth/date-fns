@@ -10,11 +10,6 @@ describe('addWeeks', function() {
     assert.deepEqual(result, new Date(2014, 8 /* Sep */, 29))
   })
 
-  it('accepts a string', function() {
-    var result = addWeeks(new Date(2014, 8 /* Sep */, 1).toISOString(), 2)
-    assert.deepEqual(result, new Date(2014, 8 /* Sep */, 15))
-  })
-
   it('accepts a timestamp', function() {
     var result = addWeeks(new Date(2014, 8 /* Sep */, 1).getTime(), 1)
     assert.deepEqual(result, new Date(2014, 8 /* Sep */, 8))

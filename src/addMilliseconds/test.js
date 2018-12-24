@@ -13,14 +13,6 @@ describe('addMilliseconds', function() {
     assert.deepEqual(result, new Date(2014, 6 /* Jul */, 10, 12, 45, 30, 750))
   })
 
-  it('accepts a string', function() {
-    var result = addMilliseconds(
-      new Date(2014, 6 /* Jul */, 10, 12, 45, 30, 0).toISOString(),
-      500
-    )
-    assert.deepEqual(result, new Date(2014, 6 /* Jul */, 10, 12, 45, 30, 500))
-  })
-
   it('accepts a timestamp', function() {
     var result = addMilliseconds(
       new Date(2014, 6 /* Jul */, 10, 12, 45, 30, 0).getTime(),
