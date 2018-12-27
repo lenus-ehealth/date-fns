@@ -1,82 +1,108 @@
 var formatDistanceLocale = {
   lessThanXSeconds: {
-    one: 'mindre end et sekund',
-    other: 'mindre end {{count}} sekunder'
+    singular: 'mindre end et sekund',
+    plural: 'mindre end {{count}} sekunder'
   },
 
   xSeconds: {
-    one: '1 sekund',
-    other: '{{count}} sekunder'
+    singular: 'et sekund',
+    plural: '{{count}} sekunder'
   },
 
   halfAMinute: 'et halvt minut',
 
   lessThanXMinutes: {
-    one: 'mindre end et minut',
-    other: 'mindre end {{count}} minutter'
+    singular: 'mindre end et minut',
+    plural: 'mindre end {{count}} minutter'
   },
 
   xMinutes: {
-    one: '1 minut',
-    other: '{{count}} minutter'
+    singular: 'et minut',
+    plural: '{{count}} minutter'
   },
 
   aboutXHours: {
-    one: 'cirka 1 time',
-    other: 'cirka {{count}} timer'
+    singular: 'cirka en time',
+    plural: 'cirka {{count}} timer'
   },
 
   xHours: {
-    one: '1 time',
-    other: '{{count}} timer'
+    singular: 'en time',
+    plural: '{{count}} timer'
   },
 
   xDays: {
-    one: '1 dag',
-    other: '{{count}} dage'
+    singular: 'en dag',
+    plural: '{{count}} dage'
   },
 
   aboutXMonths: {
-    one: 'cirka 1 måned',
-    other: 'cirka {{count}} måneder'
+    singular: 'cirka en måned',
+    plural: 'cirka {{count}} måneder'
   },
 
   xMonths: {
-    one: '1 måned',
-    other: '{{count}} måneder'
+    singular: 'en måned',
+    plural: '{{count}} måneder'
   },
 
   aboutXYears: {
-    one: 'cirka 1 år',
-    other: 'cirka {{count}} år'
+    singular: 'cirka et år',
+    plural: 'cirka {{count}} år'
   },
 
   xYears: {
-    one: '1 år',
-    other: '{{count}} år'
+    singular: 'et år',
+    plural: '{{count}} år'
   },
 
   overXYears: {
-    one: 'over 1 år',
-    other: 'over {{count}} år'
+    singular: 'over et år',
+    plural: 'over {{count}} år'
   },
 
   almostXYears: {
-    one: 'næsten 1 år',
-    other: 'næsten {{count}} år'
+    singular: 'næsten et år',
+    plural: 'næsten {{count}} år'
   }
 }
 
-export default function formatDistance (token, count, options) {
-  options = options || {}
+var wordMapping = [
+  'nul',
+  'et',
+  'to',
+  'tre',
+  'fire',
+  'fem',
+  'seks',
+  'syv',
+  'otte',
+  'ni',
+  'ti',
+  'elleve',
+  'tolv'
+]
 
+export default function formatDistance(token, count, options) {
+  options = options || {
+    onlyNumeric: false
+  }
+
+  var translation = formatDistanceLocale[token]
   var result
-  if (typeof formatDistanceLocale[token] === 'string') {
-    result = formatDistanceLocale[token]
-  } else if (count === 1) {
-    result = formatDistanceLocale[token].one
+  if (typeof translation === 'string') {
+    result = translation
+  } else if (count === 0 || count > 1) {
+    if (options.onlyNumeric) {
+      result = translation.plural.replace('{{count}}', count)
+    } else {
+      result = translation.plural.replace(
+        '{{count}}',
+        count < 13 ? wordMapping[count] : count
+      )
+    }
   } else {
-    result = formatDistanceLocale[token].other.replace('{{count}}', count)
+    result = translation.singular
   }
 
   if (options.addSuffix) {
