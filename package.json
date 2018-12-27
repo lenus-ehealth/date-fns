@@ -13,7 +13,7 @@
     "node": ">= 0.11"
   },
   "typings": "./typings.d.ts",
-  "main": "src/index.js",
+  "main": "index.js",
   "module": "esm/index.js",
   "scripts": {
     "test": "karma start config/karma.js",
