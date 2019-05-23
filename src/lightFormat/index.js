@@ -17,6 +17,7 @@ var formattingTokensRegExp = /(\w)\1*|''|'(''|[^'])+('|$)|./g
 
 var escapedStringRegExp = /^'(.*?)'?$/
 var doubleQuoteRegExp = /''/g
+var unescapedLatinCharacterRegExp = /[a-zA-Z]/
 
 /**
  * @name lightFormat
@@ -32,7 +33,6 @@ var doubleQuoteRegExp = /''/g
  *
  * The characters wrapped between two single quotes characters (') are escaped.
  * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
- * (see the last example)
  *
  * Format of the string is based on Unicode Technical Standard #35:
  * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
@@ -60,6 +60,10 @@ var doubleQuoteRegExp = /''/g
  * |                                 | mm      | 00, 01, ..., 59                   |
  * | Second                          | s       | 0, 1, ..., 59                     |
  * |                                 | ss      | 00, 01, ..., 59                   |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |
+ * |                                 | SS      | 00, 01, ..., 99                   |
+ * |                                 | SSS     | 000, 0001, ..., 999               |
+ * |                                 | SSSS    | ...                               |
  * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |
  * |                                 | XX      | -0800, +0530, Z                   |
  * |                                 | XXX     | -08:00, +05:30, Z                 |
@@ -71,19 +75,17 @@ var doubleQuoteRegExp = /''/g
  * |                                 | xxxx    | -0800, +0530, +0000, +123456      |
  * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |
  *
- * @param {Date|String|Number} date - the original date
+ * @param {Date|Number} date - the original date
  * @param {String} format - the string of tokens
- * @param {Options} [options] - the object with options. See [Options]{@link https://date-fns.org/docs/Options}
- * @param {0|1|2} [options.additionalDigits=2] - passed to `toDate`. See [toDate]{@link https://date-fns.org/docs/toDate}
  * @returns {String} the formatted date string
  * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `options.additionalDigits` must be 0, 1 or 2
+ * @throws {RangeError} format string contains an unescaped latin alphabet character
  *
  * @example
  * var result = format(new Date(2014, 1, 11), 'yyyy-MM-dd')
  * //=> '1987-02-11'
  */
-export default function lightFormat(dirtyDate, dirtyFormatStr, options) {
+export default function lightFormat(dirtyDate, dirtyFormatStr) {
   if (arguments.length < 2) {
     throw new TypeError(
       '2 arguments required, but only ' + arguments.length + ' present'
@@ -92,17 +94,17 @@ export default function lightFormat(dirtyDate, dirtyFormatStr, options) {
 
   var formatStr = String(dirtyFormatStr)
 
-  var originalDate = toDate(dirtyDate, options)
+  var originalDate = toDate(dirtyDate)
 
-  if (!isValid(originalDate, options)) {
-    return 'Invalid Date'
+  if (!isValid(originalDate)) {
+    throw new RangeError('Invalid time value')
   }
 
   // Convert the date in system timezone to the same date in UTC+00:00 timezone.
   // This ensures that when UTC functions will be implemented, locales will be compatible with them.
   // See an issue about UTC functions: https://github.com/date-fns/date-fns/issues/376
   var timezoneOffset = getTimezoneOffsetInMilliseconds(originalDate)
-  var utcDate = subMilliseconds(originalDate, timezoneOffset, options)
+  var utcDate = subMilliseconds(originalDate, timezoneOffset)
 
   var result = formatStr
     .match(formattingTokensRegExp)
@@ -120,6 +122,14 @@ export default function lightFormat(dirtyDate, dirtyFormatStr, options) {
       var formatter = formatters[firstCharacter]
       if (formatter) {
         return formatter(utcDate, substring, null, {})
+      }
+
+      if (firstCharacter.match(unescapedLatinCharacterRegExp)) {
+        throw new RangeError(
+          'Format string contains an unescaped latin alphabet character `' +
+            firstCharacter +
+            '`'
+        )
       }
 
       return substring

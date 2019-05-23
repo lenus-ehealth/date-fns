@@ -7,30 +7,6 @@ import lightFormat from '.'
 describe('lightFormat', () => {
   const date = new Date(1986, 3 /* Apr */, 4, 10, 32, 55, 123)
 
-  var offset = date.getTimezoneOffset()
-  var absoluteOffset = Math.abs(offset)
-  var hours = Math.floor(absoluteOffset / 60)
-  var hoursLeadingZero = hours < 10 ? '0' : ''
-  var minutes = absoluteOffset % 60
-  var minutesLeadingZero = minutes < 10 ? '0' : ''
-  var sign = offset > 0 ? '-' : '+'
-
-  var timezone =
-    sign + hoursLeadingZero + hours + ':' + minutesLeadingZero + minutes
-  var timezoneShort = timezone.replace(':', '')
-  var timezoneWithOptionalMinutesShort =
-    minutes === 0 ? sign + hoursLeadingZero + hours : timezoneShort
-
-  var timezoneWithZ = offset === 0 ? 'Z' : timezone
-  var timezoneWithZShort = offset === 0 ? 'Z' : timezoneShort
-  var timezoneWithOptionalMinutesAndZShort =
-    offset === 0 ? 'Z' : timezoneWithOptionalMinutesShort
-
-  it('accepts a string', () => {
-    var date = new Date(1987, 1, 11).toISOString()
-    assert(lightFormat(date, 'yyyy-MM-dd') === '1987-02-11')
-  })
-
   it('accepts a timestamp', () => {
     var date = new Date(2014, 3, 4).getTime()
     assert(lightFormat(date, 'yyyy-MM-dd') === '2014-04-04')
@@ -133,8 +109,16 @@ describe('lightFormat', () => {
     })
   })
 
-  it("returns String('Invalid Date') if the date isn't valid", () => {
-    assert(lightFormat(new Date(NaN), 'MMMM d, yyyy') === 'Invalid Date')
+  it('fractional seconds', function() {
+    var result = lightFormat(date, 'S SS SSS SSSS')
+    assert(result === '1 12 123 1230')
+  })
+
+  it("throws RangeError if the date isn't valid", () => {
+    assert.throws(
+      lightFormat.bind(null, new Date(NaN), 'MMMM d, yyyy'),
+      RangeError
+    )
   })
 
   it('implicitly converts `formatString`', () => {
@@ -145,6 +129,10 @@ describe('lightFormat', () => {
 
     // $ExpectedMistake
     assert(lightFormat(date, formatString) === '2014-04-04')
+  })
+
+  it('throws RangeError exception if the format string contains an unescaped latin alphabet character', function() {
+    assert.throws(lightFormat.bind(null, date, 'yyyy-MM-dd-nnnn'), RangeError)
   })
 
   it('throws TypeError exception if passed less than 2 arguments', () => {
